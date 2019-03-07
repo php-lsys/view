@@ -80,12 +80,12 @@ class View{
 	 * Sets a global variable, similar to [View::set], except that the
 	 * variable will be accessible to all views.
 	 *
-	 *     View::set_global($name, $value);
+	 *     View::setGlobal($name, $value);
 	 *
 	 * You can also use an array or Traversable object to set several values at once:
 	 *
 	 *     // Create the values $food and $beverage in the view
-	 *     View::set_global(array('food' => 'bread', 'beverage' => 'water'));
+	 *     View::setGlobal(array('food' => 'bread', 'beverage' => 'water'));
 	 *
 	 * [!!] Note: When setting with using Traversable object we're not attaching the whole object to the view,
 	 * i.e. the object's standard properties will not be available in the view context.
@@ -94,7 +94,7 @@ class View{
 	 * @param   mixed                     $value  value
 	 * @return  void
 	 */
-	public static function set_global($key, $value = NULL)
+	public static function setGlobal($key, $value = NULL)
 	{
 		if (is_array($key) OR $key instanceof \Traversable)
 		{
@@ -112,13 +112,13 @@ class View{
 	 * Assigns a global variable by reference, similar to [View::bind], except
 	 * that the variable will be accessible to all views.
 	 *
-	 *     View::bind_global($key, $value);
+	 *     View::bindGlobal($key, $value);
 	 *
 	 * @param   string  $key    variable name
 	 * @param   mixed   $value  referenced variable
 	 * @return  void
 	 */
-	public static function bind_global($key, & $value)
+	public static function bindGlobal($key, & $value)
 	{
 		self::$_global_data[$key] =& $value;
 	}
@@ -152,7 +152,7 @@ class View{
 	{
 		if ($file !== NULL)
 		{
-			$this->set_filename($file);
+			$this->setFilename($file);
 		}
 		if ($data !== NULL)
 		{
@@ -243,7 +243,7 @@ class View{
 		catch (\Exception $e)
 		{
 			try{
-			    return \LSYS\ObjectRender\DI::get()->object_render()->set_object($e)->render();
+			    return \LSYS\ObjectRender\DI::get()->objectRender()->setObject($e)->render();
 			}catch (\Exception $e){
 			    return \LSYS\ObjectRender\Render\Exception::entext($e);
 			}
@@ -252,13 +252,13 @@ class View{
 	/**
 	 * Sets the view filename.
 	 *
-	 *     $view->set_filename($file);
+	 *     $view->setFilename($file);
 	 *
 	 * @param   string  $file   view filename
 	 * @return  View
 	 * @throws  Exception
 	 */
-	public function set_filename($file)
+	public function setFilename($file)
 	{
 		$_file=null;
 		foreach (self::$_dirs as $v){
@@ -345,7 +345,7 @@ class View{
 	{
 		if ($file !== NULL)
 		{
-			$this->set_filename($file);
+			$this->setFilename($file);
 		}
 		if (empty($this->_file))
 		{
