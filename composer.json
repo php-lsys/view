@@ -1,7 +1,7 @@
 {
 	"name": "lsys/view",
-	"type" : "library","license": "Apache-2.0",
-
+	"type" : "library",
+	"license": "Apache-2.0",
 	"description" : "lsys module view",
 	"autoload":{
 		"psr-4": {
@@ -9,7 +9,6 @@
 		}
     },
     "require": {
-     	"php": ">=5.5",
      	"lsys/core":"~2.1.0",
      	"lsys/objectrender":"~2.1.0"
 	}
