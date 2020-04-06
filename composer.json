@@ -9,7 +9,7 @@
 		}
     },
     "require": {
-     	"lsys/core":"~2.1.0",
-     	"lsys/objectrender":"~2.1.0"
+     	"lsys/core":"~2.0.0",
+     	"lsys/objectrender":"~2.0.0"
 	}
 }
