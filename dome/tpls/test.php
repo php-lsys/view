@@ -1,4 +1,4 @@
 <?php
 use LSYS\View;
 
-echo View::widget(bb::class);
+echo View::widget(testbb::class);

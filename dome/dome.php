@@ -2,7 +2,7 @@
 use LSYS\View;
 use LSYS\View\Widget;
 include __DIR__."/Bootstarp.php";
-class bb extends Widget{
+class testbb extends Widget{
 	public function render($data=NULL){
 		$data=$this->proxyData("aa", function(){
 			return "tt";

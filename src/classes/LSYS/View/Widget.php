@@ -19,7 +19,7 @@ abstract class Widget{
 	 * @param callable $callable
 	 * @return mixed
 	 */
-	public function proxyData($key,callable $callable){
+	public function proxyData(string $key,callable $callable){
 		if (!$this->_view->__isset($key))return call_user_func($callable);
 		return $this->_view->{$key};
 	}
@@ -30,7 +30,7 @@ abstract class Widget{
 	 * @param string $module 模块名
 	 * @return string
 	 */
-	protected function _render($data=NULL,$tpl=NULL){
+	protected function _render($data=NULL,?string $tpl=NULL){
 		if ($tpl==null){
 			$tpl=get_called_class();
 			if (strpos($tpl, '\\')!==false) $tpl=substr(strrchr($tpl, '\\'), 1);

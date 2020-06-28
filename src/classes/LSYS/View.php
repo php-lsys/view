@@ -7,6 +7,9 @@
 namespace LSYS;
 use LSYS\View\Widget;
 class View{
+    public static $ext=".php";
+    // Array of global variables
+    protected static $_global_data = array();
 	//find the dir
 	protected static $_dirs=array();
 	/**
@@ -21,9 +24,6 @@ class View{
 		$dirs=array_merge($dirs,self::$_dirs);
 		self::$_dirs=$dirs;
 	}
-	public static $ext=".php";
-	// Array of global variables
-	protected static $_global_data = array();
 	/**
 	 * Returns a new View object. If you do not define the "file" parameter,
 	 * you must call [View::set_filename].
@@ -34,7 +34,7 @@ class View{
 	 * @param   array   $data   array of values
 	 * @return  View
 	 */
-	public static function factory($file = NULL, array $data = NULL)
+	public static function factory(?string $file = NULL, array $data = NULL)
 	{
 		return new static($file, $data);
 	}
@@ -50,7 +50,7 @@ class View{
 	 * @return  string
 	 * @throws  Exception
 	 */
-	protected static function capture($view_filename, array $view_data)
+	protected static function capture(string $view_filename, array $view_data)
 	{
 		// Import the view variables to local namespace
 		extract($view_data, EXTR_SKIP);
@@ -129,7 +129,7 @@ class View{
 	 * @param array $data
 	 * @return string
 	 */
-	public static function widget($widget_class,$data=NULL){
+	public static function widget(string $widget_class,$data=NULL){
 		assert(is_subclass_of($widget_class, Widget::class));
 		$obj=new \ReflectionClass($widget_class);
 		return $obj->newInstance(new self)->render($data);
@@ -148,7 +148,7 @@ class View{
 	 * @param   array   $data   array of values
 	 * @uses    View::set_filename
 	 */
-	public function __construct($file = NULL, array $data = NULL)
+	public function __construct(?string $file = NULL, array $data = NULL)
 	{
 		if ($file !== NULL)
 		{
@@ -172,7 +172,7 @@ class View{
 	 * @return  mixed
 	 * @throws  Exception
 	 */
-	public function & __get($key)
+	public function & __get(string $key)
 	{
 		if (array_key_exists($key, $this->_data))
 		{
@@ -197,7 +197,7 @@ class View{
 	 * @param   mixed   $value  value
 	 * @return  void
 	 */
-	public function __set($key, $value)
+	public function __set(string $key, $value)
 	{
 		$this->set($key, $value);
 	}
@@ -211,7 +211,7 @@ class View{
 	 * @param   string  $key    variable name
 	 * @return  boolean
 	 */
-	public function __isset($key)
+	public function __isset(string $key)
 	{
 		return (isset($this->_data[$key]) OR isset(self::$_global_data[$key]));
 	}
@@ -223,7 +223,7 @@ class View{
 	 * @param   string  $key    variable name
 	 * @return  void
 	 */
-	public function __unset($key)
+	public function __unset(string $key)
 	{
 		unset($this->_data[$key], self::$_global_data[$key]);
 	}
@@ -258,7 +258,7 @@ class View{
 	 * @return  View
 	 * @throws  Exception
 	 */
-	public function setFilename($file)
+	public function setFilename(string $file)
 	{
 		$_file=null;
 		foreach (self::$_dirs as $v){
@@ -322,7 +322,7 @@ class View{
 	 * @param   mixed   $value  referenced variable
 	 * @return  $this
 	 */
-	public function bind($key, & $value)
+	public function bind(string $key, & $value)
 	{
 		$this->_data[$key] =& $value;
 		return $this;
@@ -341,7 +341,7 @@ class View{
 	 * @throws  Exception
 	 * @uses    View::capture
 	 */
-	public function render($file = NULL)
+	public function render(?string $file = NULL)
 	{
 		if ($file !== NULL)
 		{
